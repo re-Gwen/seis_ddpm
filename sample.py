@@ -9,7 +9,7 @@ import tool
 import dataset
 
 NUM_SAMPLE=20
-RAW_DATA_PATH="/home/chengzhitong/seismic_ddpm/data/006_3a3_nucns_3a2_data_DX004_p2.sgy"
+RAW_DATA_PATH="./"
 def load_model(path,device,model):
     data= torch.load(path,map_location=device)
     model.load_state_dict(data['model'])
@@ -60,7 +60,7 @@ def sample(diffusion_model: DiffusionModel,num_samples,x_cond: torch.Tensor=None
 if __name__ == '__main__':
     net=Unet(image_channels=2)
     device='cuda:0'
-    model=load_model(path='/home/chengzhitong/seismic_ddpm/ddpm_raw/results/DDPM_Unet_POS_False_RAW_liked_signal/checkpoints/model-3_RAW-liked.pth',device=device,model=net)
+    model=load_model(path='./',device=device,model=net)
     print('Successfully loaded model')
     dl_raw=dataset.RAW_data_loader(file_name=RAW_DATA_PATH,data_num=NUM_SAMPLE,resize=False,batch_size=NUM_SAMPLE,resample=True,pad=False)
     raw_data=next(iter(dl_raw))
